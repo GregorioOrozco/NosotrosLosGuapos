@@ -1,0 +1,16 @@
+#### Miguel Alonso De La Rosa Zamora A01646106 - Gregorio Alejandro Orozco Torres A01641967 - Sophia Leñero Gómez A01639462
+
+# Practice - UART
+
+## Descripción de la práctica
+La practica consiste en el diseño e implementación de un sistema de control industrial para una trituradora con el que podamos regular la velocidad y el torque de un motor mediante PWM. Crear una interfaz con dos modos: un modo manual, donde el usuario selecciona niveles de potencia predefinidos (25%, 50%, 75% y 100%) a través de comandos de teclado, y un modo automático que ajusta dinámicamente la velocidad basándose en la lectura de un sensor analógico (ADC) que simula la carga de trabajo. Además, el diseño integra interrupciones por botones, permitiendo el paro de emergencia inmediato y el retorno al menú principal.
+
+## Esquemático del circuito utilizado 
+<div align="center">
+  
+</div>
+
+## Funcionamiento
+- Video
+
+[![Ver video](https://img.youtube.com/vi/DZJ4amev0x8/hqdefault.jpg)](https://youtu.be/DZJ4amev0x8)
