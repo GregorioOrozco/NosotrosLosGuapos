@@ -22,4 +22,4 @@ This lab will help you to remember some concepts seen in previous courses such a
 
 - Part 4 - Interruptions
   
- [![Ver video](https://img.youtube.com/vi/GGEJ74uJyl4/hqdefault.jpg)](https://youtu.be/GGEJ74uJyl4)
+ [![Ver video](https://img.youtube.com/shorts/GGEJ74uJyl4/hqdefault.jpg)](https://youtu.be/GGEJ74uJyl4)
