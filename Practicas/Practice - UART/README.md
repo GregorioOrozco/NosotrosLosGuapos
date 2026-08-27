@@ -6,9 +6,6 @@
 This lab will help you to remember some concepts seen in previous courses such as inputs, outputs, keypad, ADC and the introduction to UART seen in class.
 
 ## Practice Evidence
-- Part 2 - Examples
-  
-[![Ver video](https://img.youtube.com/vi/DZJ4amev0x8/hqdefault.jpg)](https://youtu.be/DZJ4amev0x8)
 
 - Part 3 - UART Peripheral Control and Monitoring
   
@@ -25,4 +22,4 @@ This lab will help you to remember some concepts seen in previous courses such a
 
 - Part 4 - Interruptions
   
- [![Ver video](https://img.youtube.com/vi/DZJ4amev0x8/hqdefault.jpg)](https://youtu.be/DZJ4amev0x8)
+ [![Ver video](https://img.youtube.com/vi/GGEJ74uJyl4/hqdefault.jpg)](https://youtu.be/GGEJ74uJyl4)
