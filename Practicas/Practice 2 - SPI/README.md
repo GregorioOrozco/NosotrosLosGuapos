@@ -3,11 +3,13 @@
 # Practice 2 - SPI
 
 ## Practice description
-This lab will help you to remember some concepts seen in previous courses such as inputs, outputs, keypad, ADC and the introduction to UART seen in class.
+The objective of this lab is to implement SPI communication using the MAX7219 driver to
+control four 7-segment displays and integrate it with the concepts and peripherals previously
+seen in class.
 
 ## Practice Evidence
 
-- Part 3 - UART Peripheral Control and Monitoring
+- Part 1 - Examples
   
 <div align="center">
  <img width=40% height=40% alt="ptashvccv333_1" src="https://github.com/user-attachments/assets/0eed1e83-711a-414b-a45d-a2bfb2460c44" 
@@ -20,6 +22,9 @@ This lab will help you to remember some concepts seen in previous courses such a
    />
 </div>
 
-- Part 4 - Interruptions
+- Part 2 - Four-Digit Counter
 
 [![Ver video](https://img.youtube.com/vi/GGEJ74uJyl4/hqdefault.jpg)](https://youtu.be/GGEJ74uJyl4)
+
+- Part 3 - Application
+
