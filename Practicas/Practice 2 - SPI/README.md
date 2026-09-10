@@ -12,7 +12,7 @@ seen in class.
 - Part 1 - Examples
   
 <div align="center">
-  <img width= %50 height= %50 alt="WhatsApp Image 2026-09-09 at 5 23 42 PM" src="https://github.com/user-attachments/assets/d25ce590-126b-4a6a-b96e-01a4f4821583" />
+  <img width= %20 height= %20 alt="WhatsApp Image 2026-09-09 at 5 23 42 PM" src="https://github.com/user-attachments/assets/d25ce590-126b-4a6a-b96e-01a4f4821583" />
 </div>
 
 - Part 2 - Four-Digit Counter
