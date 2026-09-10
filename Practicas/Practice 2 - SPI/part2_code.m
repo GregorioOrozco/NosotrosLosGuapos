@@ -1,3 +1,7 @@
+// A este codigo se le implemento un tickcounter para poder definir el cambio de numero cada 1000ms,
+pero principalmente para no depender de delays bloqueantes que provoquen problemas de deteccion de los
+botones y perdida de datos.
+
 #include <MKL25Z4.H>
 #include <stdbool.h>
 
