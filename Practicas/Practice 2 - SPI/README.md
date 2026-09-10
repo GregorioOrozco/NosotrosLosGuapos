@@ -12,14 +12,7 @@ seen in class.
 - Part 1 - Examples
   
 <div align="center">
- <img width=40% height=40% alt="ptashvccv333_1" src="https://github.com/user-attachments/assets/0eed1e83-711a-414b-a45d-a2bfb2460c44" 
-  />
- <img width=40% height=40% alt="potrytsafdgsa333_2" src="https://github.com/user-attachments/assets/2b19b9a4-fde4-46b2-8128-16db45f82e8e" 
-   />
- <img width=40% height=40% alt="practiceee3333_333" src="https://github.com/user-attachments/assets/50f9acd9-e3d4-4c9f-b427-b76852408034" 
-   />
- <img width=40% height=40% alt="ptarsfcaee33_444" src="https://github.com/user-attachments/assets/8504caa8-0106-4cdb-a142-f973a26cd74e" 
-   />
+  <img width="1600" height="1594" alt="WhatsApp Image 2026-09-09 at 5 23 42 PM" src="https://github.com/user-attachments/assets/d25ce590-126b-4a6a-b96e-01a4f4821583" />
 </div>
 
 - Part 2 - Four-Digit Counter
