@@ -17,7 +17,8 @@ seen in class.
 
 - Part 2 - Four-Digit Counter
 
-[![Ver video](https://img.youtube.com/vi/GGEJ74uJyl4/hqdefault.jpg)](https://youtu.be/GGEJ74uJyl4)
+[![Ver video](https://img.youtube.com/vi/nNiMiSg5hME/hqdefault.jpg)](https://youtu.be/nNiMiSg5hME)
 
 - Part 3 - Application
 
+[![Ver video](https://img.youtube.com/vi/nNiMiSg5hME/hqdefault.jpg)](https://youtu.be/nNiMiSg5hME)
