@@ -2,17 +2,17 @@
 
 # Practice 3 – I²C/SPI Monitoring Station
 
-# Step 1 — RTC: Date and Time
+## Step 1 — RTC: Date and Time
 
-# Step 2 — SPI Display with MAX7219
+## Step 2 — SPI Display with MAX7219
 
-# Step 3 — Keypad Configuration
+## Step 3 — Keypad Configuration
 
-# Step 4 — RTC Alarm and Interrupt
+## Step 4 — RTC Alarm and Interrupt
 
-# Step 5 — I²C Temperature Monitoring
+## Step 5 — I²C Temperature Monitoring
 
-# Step 6 — Complete Monitoring Station
+## Step 6 — Complete Monitoring Station
 
 ## Extra Challenge 1 — I²C LCD Interface (+10)
 
