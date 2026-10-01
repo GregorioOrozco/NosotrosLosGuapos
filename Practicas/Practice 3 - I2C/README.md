@@ -1,3 +1,5 @@
+#### Rodrigo Armando Reveles Picie A01641220 - Gregorio Alejandro Orozco Torres A01641967 - Omer Verduzco Velazquez A07019516
+
 # Practice 3 – I²C/SPI Monitoring Station
 
 ## Objective
