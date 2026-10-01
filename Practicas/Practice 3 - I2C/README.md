@@ -6,8 +6,8 @@
 The objective of this practice is to integrate the I²C and SPI communication interfaces into a
 complete monitoring station. The system will combine an RTC, a temperature sensor, a
 keypad, an LCD, a MAX7219 display, and an alarm system.
-The practice will be developed progressively. Each section introduces a new component or
-functionality that will later become part of the complete monitoring station.
+The practice will be developed progressively. 
+Each section introduces a new component or functionality that will later become part of the complete monitoring station.
 Required Hardware
 The following components are required:
 ● KL25Z
