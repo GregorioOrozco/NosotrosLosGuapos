@@ -1,5 +1,4 @@
-# Serial Interfaces Lab
-## Practice 3 – I²C/SPI Monitoring Station
+# Practice 3 – I²C/SPI Monitoring Station
 
 ## Objective
 The objective of this practice is to integrate the I²C and SPI communication interfaces into a
