@@ -1,6 +1,7 @@
-// Serial Interfaces Lab
-/ Practice 3 – I²C/SPI Monitoring Station
-Objective
+# Serial Interfaces Lab
+## Practice 3 – I²C/SPI Monitoring Station
+
+## Objective
 The objective of this practice is to integrate the I²C and SPI communication interfaces into a
 complete monitoring station. The system will combine an RTC, a temperature sensor, a
 keypad, an LCD, a MAX7219 display, and an alarm system.
@@ -22,7 +23,7 @@ The following components are required:
 Note: The temperature sensor must communicate through I²C.
 It is suggested to use the BME280. However, it is not required for the basic practice. It may
 be used as an additional sensor as part of the Extra Challenges.
-Step 1 — RTC: Date and Time
+# Step 1 — RTC: Date and Time
 Begin the practice by implementing communication with the DS3231 RTC through I²C.
 The system must:
 1. Connect the DS3231 to the microcontroller using I²C.
@@ -37,7 +38,7 @@ For example:
 Date: 09/09/26
 Time: 15:30:25
 The exact LCD format may be modified according to the display being used.
-Step 2 — SPI Display with MAX7219
+# Step 2 — SPI Display with MAX7219
 In this section, integrate the MAX7219 using SPI.
 The system must:
 1. Connect the MAX7219 to the microcontroller using SPI.
@@ -47,7 +48,7 @@ The system must:
 5. Use the 7-segment display to show the time in HH:MM format.
 6. Keep the LCD displaying additional information such as the date.
 The time displayed on the MAX7219 must come directly from the DS3231.
-Step 3 — Keypad Configuration
+# Step 3 — Keypad Configuration
 The keypad will now be added as the main user input device.
 Create a Configuration Mode that allows the user to configure the RTC using the keypad.
 The system must allow the user to:
@@ -69,7 +70,7 @@ consistently used throughout the application.
 The system should distinguish between at least:
 ● Normal Mode
 ● Configuration Mode
-Step 4 — RTC Alarm and Interrupt
+# Step 4 — RTC Alarm and Interrupt
 Use the alarm functionality of the DS3231 to create an alarm system.
 The system must:
 1. Configure one of the DS3231 alarms.
@@ -89,7 +90,7 @@ When the alarm is triggered:
 Press # to stop
 The alarm must be triggered by the RTC rather than by continuously comparing the current
 time in software.
-Step 5 — I²C Temperature Monitoring
+# Step 5 — I²C Temperature Monitoring
 Add an I²C temperature sensor to the system.
 The sensor must share the same I²C bus with the DS3231.
 The system must:
@@ -105,11 +106,11 @@ Time: 15:30
 Temp: 24.6 C
 The temperature sensor must be a separate I²C device from the DS3231.
 The implementation should demonstrate that both devices can operate on the same I²C bus.
-Step 6 — Complete Monitoring Station
+# Step 6 — Complete Monitoring Station
 Finally, integrate all the components into a single application.
 The completed system must operate as a Monitoring Station with at least the following
 functionality.
-Normal Mode
+## Normal Mode
 The system should continuously display:
 ● Current time
 ● Current date
@@ -123,7 +124,7 @@ For example:
 Temp: 24.6 C
 Alarm: ON
 The exact screen layout may be designed by the team.
-Configuration Mode
+## Configuration Mode
 Using the keypad, the user must be able to:
 ● Configure the RTC date.
 ● Configure the RTC time.
@@ -132,7 +133,7 @@ Using the keypad, the user must be able to:
 ● Return to Normal Mode.
 The LCD must provide enough information for the user to understand the current
 configuration option.
-Alarm Mode
+## Alarm Mode
 When the configured alarm time is reached:
 1. The DS3231 generates the alarm signal.
 2. The microcontroller detects the alarm through an interrupt.
@@ -148,7 +149,7 @@ Each challenge must be fully implemented and demonstrated to receive its corresp
 points.
 Extra Challenge points are awarded in addition to the 100-point base grade and may be
 used toward the I²C Device Research activity.
-Extra Challenge 1 — I²C LCD Interface (+10)
+## Extra Challenge 1 — I²C LCD Interface (+10)
 Replace the standard parallel LCD connection with an I²C LCD module.
 The team must:
 ● Connect the LCD to the I²C bus.
@@ -158,7 +159,7 @@ The team must:
 ● Demonstrate that the LCD operates together with the DS3231 and temperature
 sensor on the same I²C bus.
 Points: +10
-Extra Challenge 2 — Additional Environmental
+## Extra Challenge 2 — Additional Environmental
 Measurements (+5)
 Extend the temperature monitoring functionality by obtaining additional measurements from
 the sensor.
@@ -173,7 +174,7 @@ The team must:
 Points: +5
 The BME280 may be used for this challenge, but it is not required for the
 basic practice.
-Extra Challenge 3 — Temperature Threshold Alarm (+5)
+## Extra Challenge 3 — Temperature Threshold Alarm (+5)
 Add an independent temperature threshold to the monitoring station.
 The system must:
 1. Allow the user to configure a temperature limit using the keypad.
@@ -184,7 +185,7 @@ For example:
 Temp: 31.2 C
 WARNING!
 Points: +5
-Extra Challenge 4 — Additional I²C Sensor (+5)
+## Extra Challenge 4 — Additional I²C Sensor (+5)
 Add a second sensor that communicates through I²C.
 The sensor must be different from the required temperature sensor.
 The team must:
@@ -196,7 +197,7 @@ The team must:
 ● Display the measurement on the LCD.
 ● Demonstrate that the new sensor operates together with the existing I²C devices.
 Points: +5
-Extra Challenge 5 — Additional Sensor Using Another
+## Extra Challenge 5 — Additional Sensor Using Another
 Interface (+5)
 Add a sensor that uses a different communication interface, such as SPI, analog input, or
 another interface previously covered in the course.
@@ -207,7 +208,7 @@ The team must:
 ● Integrate the sensor into the monitoring station.
 ● Display its measurement on the LCD or 7-segment display, as appropriate.
 Points: +5
-Extra Challenge Summary
+## Extra Challenge Summary
 Extra Challenge Points
 I²C LCD Interface +10
 Additional Environmental Measurements +5
@@ -219,9 +220,9 @@ Teams may complete any combination of the extra challenges. For example:
 ● I²C LCD + Temperature Threshold = +15
 ● BME280 additional measurements + Additional I²C Sensor = +10
 ● All five challenges = +30
-Deliverables
+# Deliverables
 Each team must submit:
-1. Source Code
+## 1. Source Code
 The complete source code used for the practice.
 The code should be organized into appropriate functions or modules for:
 ● I²C communication
@@ -233,7 +234,7 @@ The code should be organized into appropriate functions or modules for:
 ● Keypad
 ● Alarm/interrupt handling
 ● Main application
-2. Demonstration
+## 2. Demonstration
 The complete system must be demonstrated to the instructor.
 The demonstration must show:
 1. RTC configuration.
