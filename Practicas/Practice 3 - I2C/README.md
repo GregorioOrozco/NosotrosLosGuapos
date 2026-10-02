@@ -19,7 +19,26 @@
 
 ## Step 3 — Keypad Configuration
 
+<p align="center">
+  <a href="https://youtube.com/shorts/UHBn99XSQuo" target="_blank">
+    <img src="https://img.youtube.com/vi/UHBn99XSQuo/hqdefault.jpg" alt="Ver video de la demostración" width="50%" />
+  </a>
+</p>
+
 ## Step 4 — RTC Alarm and Interrupt
+
+Alarm setup:
+<p align="center">
+  <a href="https://youtube.com/shorts/7qGmc5NkmyA" target="_blank">
+    <img src="https://img.youtube.com/vi/7qGmc5NkmyA/hqdefault.jpg" alt="Ver video de la demostración" width="50%" />
+  </a>
+</p>
+Alarm Beep:
+<p align="center">
+  <a href="https://youtube.com/shorts/QOymxJhlqAA" target="_blank">
+    <img src="https://img.youtube.com/vi/QOymxJhlqAA/hqdefault.jpg" alt="Ver video de la demostración" width="50%" />
+  </a>
+</p>
 
 ## Step 5 — I²C Temperature Monitoring
 
