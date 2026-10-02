@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://youtube.com/shorts/tprQ1ECOj6w" target="_blank">
-    <img src="https://img.youtube.com/vi/tprQ1ECOj6w/maxresdefault.jpg" alt="Ver video de la demostración" width="50%" />
+    <img src="https://img.youtube.com/vi/tprQ1ECOj6w/hqdefault.jpg" alt="Ver video de la demostración" width="50%" />
   </a>
 </p>
 
