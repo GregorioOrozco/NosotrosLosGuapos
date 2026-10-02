@@ -4,6 +4,11 @@
 
 ## Step 1 — RTC: Date and Time
 
+<div align="center">
+  <img width="1200" height="1600" alt="WhatsApp Image 2026-10-01 at 2 06 39 PM" src="https://github.com/user-attachments/assets/a7da8d51-2813-499b-85e7-daac141f10c8" 
+    />
+</div>
+
 ## Step 2 — SPI Display with MAX7219
 
 ## Step 3 — Keypad Configuration
