@@ -13,7 +13,7 @@
 ## Step 2 — SPI Display with MAX7219
 
 <div align="center">
-  <img width="600" height="1000" alt="WhatsApp Image 2026-10-01 at 2 06 39 PM" src="https://github.com/user-attachments/assets/a7da8d51-2813-499b-85e7-daac141f10c8" 
+  <img width="600" height="600" alt="WhatsApp Image 2026-10-01 at 2 06 39 PM" src="https://github.com/user-attachments/assets/a7da8d51-2813-499b-85e7-daac141f10c8" 
     />
 </div>
 
