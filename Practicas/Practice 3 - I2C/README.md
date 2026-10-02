@@ -1,4 +1,7 @@
 #### Rodrigo Armando Reveles Picie A01641220 - Gregorio Alejandro Orozco Torres A01641967 - Omer Verduzco Velazquez A07019516
+#### Ricardo Sebastián González Rivas A01646105 - Marco Natsumi Rabiela Mun A01647377 - Mariana Eileen Martínez Mancilla A01640695 
+
+
 
 # Practice 3 – I²C/SPI Monitoring Station
 
