@@ -11,6 +11,12 @@
 
 ## Step 2 — SPI Display with MAX7219
 
+<p align="center">
+  <a href="https://youtu.be/nNiMiSg5hME" target="_blank">
+    <img src="https://img.youtube.com/vi/nNiMiSg5hME/hqdefault.jpg" alt="Ver video de la demostración" width="85%" />
+  </a>
+</p>
+
 ## Step 3 — Keypad Configuration
 
 ## Step 4 — RTC Alarm and Interrupt
