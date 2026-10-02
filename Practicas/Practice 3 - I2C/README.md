@@ -48,6 +48,11 @@ Alarm Beep:
 
 ## Step 5 — I²C Temperature Monitoring
 
+<div align="center">
+  <img width="1200" height="1600" alt="steppppp5" src="https://github.com/user-attachments/assets/01e64a79-d2aa-4269-b870-94fcabd74efa" 
+    />
+</div>
+
 ## Step 6 — Complete Monitoring Station
 
 ## Extra Challenge 1 — I²C LCD Interface (+10)
