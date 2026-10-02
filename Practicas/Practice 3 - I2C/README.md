@@ -55,15 +55,11 @@ Alarm Beep:
 
 ## Step 6 — Complete Monitoring Station
 
-## Extra Challenge 1 — I²C LCD Interface (+10)
-
-## Extra Challenge 2 — Additional Environmental
-
-## Extra Challenge 3 — Temperature Threshold Alarm (+5)
-
-## Extra Challenge 4 — Additional I²C Sensor (+5)
-
-## Extra Challenge 5 — Additional Sensor Using Another
+<p align="center">
+  <a href="https://youtube.com/shorts/vjrvdL04BQo" target="_blank">
+    <img src="https://img.youtube.com/vi/vjrvdL04BQo/hqdefault.jpg" alt="Ver video de la demostración" width="50%" />
+  </a>
+</p>
 
 # Demonstration
 The complete system must be demonstrated to the instructor.
