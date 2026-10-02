@@ -15,11 +15,10 @@
 #define D7 (1 << 5) // PTC5
 
 // ==========================================
-// CONFIGURACIÓN DEL DS3231 (RTC I2C1)
+// CONFIGURACIÓN DEL DS3231 (RTC)
 // ==========================================
 #define DS3231_ADDR 0x68
 
-// Retardo simple por software (~milisegundos)
 void delay_ms(volatile uint32_t t) {
     for(; t > 0; t--) {
         for(volatile int i = 0; i < 7000; i++);
@@ -27,7 +26,7 @@ void delay_ms(volatile uint32_t t) {
 }
 
 // ==========================================
-// FUNCIONES DEL LCD (PUERTO C)
+// FUNCIONES DEL LCD
 // ==========================================
 void LCD_Pulse(void) {
     GPIOC->PSOR = EN;
@@ -83,15 +82,15 @@ void LCD_Command(uint8_t cmd) {
 }
 
 // ==========================================
-// FUNCIONES I2C1 (DS3231 - PUERTO E)
+// FUNCIONES I2C1
 // ==========================================
 void I2C1_Init(void) {
     SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
     SIM->SCGC4 |= SIM_SCGC4_I2C1_MASK;
     I2C1->C1 = 0;
 
-    PORTE->PCR[0] = PORT_PCR_MUX(6) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK; // PTE0 SDA
-    PORTE->PCR[1] = PORT_PCR_MUX(6) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK; // PTE1 SCL
+    PORTE->PCR[0] = PORT_PCR_MUX(6) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;
+    PORTE->PCR[1] = PORT_PCR_MUX(6) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;
 
     I2C1->F = 0x14;
     I2C1->C1 = I2C_C1_IICEN_MASK;
@@ -99,16 +98,20 @@ void I2C1_Init(void) {
 
 void I2C_Wait(void) {
     uint32_t timeout = 0;
-    while(((I2C1->S & I2C_S_IICIF_MASK) == 0) && (timeout < 50000)) timeout++;
+    while(((I2C1->S & I2C_S_IICIF_MASK) == 0) && (timeout < 50000)) {
+        timeout++;
+    }
     I2C1->S |= I2C_S_IICIF_MASK;
 }
 
 void I2C_Start(void) {
-    I2C1->C1 |= I2C_C1_TX_MASK | I2C_C1_MST_MASK;
+    I2C1->C1 |= I2C_C1_TX_MASK;
+    I2C1->C1 |= I2C_C1_MST_MASK;
 }
 
 void I2C_Stop(void) {
-    I2C1->C1 &= ~(I2C_C1_MST_MASK | I2C_C1_TX_MASK);
+    I2C1->C1 &= ~I2C_C1_MST_MASK;
+    I2C1->C1 &= ~I2C_C1_TX_MASK;
 }
 
 void I2C_WriteByte(uint8_t data) {
@@ -116,37 +119,67 @@ void I2C_WriteByte(uint8_t data) {
     I2C_Wait();
 }
 
+// ==========================================
+// CONTROL DS3231 Y BCD
+// ==========================================
 uint8_t bcdToDec(uint8_t val) { return ((val >> 4) * 10) + (val & 0x0F); }
 uint8_t decToBcd(uint8_t val) { return ((val / 10) << 4) | (val % 10); }
 
+// NUEVA FUNCIÓN: Lectura en ráfaga (Evita desincronización de registros)
 void DS3231_ReadTime(uint8_t *hour, uint8_t *min, uint8_t *sec, uint8_t *day, uint8_t *month, uint8_t *year) {
+    uint8_t raw_sec, raw_min, raw_hour, raw_dow, raw_day, raw_month, raw_year;
+
+    // 1. Apuntar al registro 0x00 (Segundos)
     I2C_Start();
     I2C_WriteByte((DS3231_ADDR << 1) | 0);
     I2C_WriteByte(0x00);
     I2C_Stop();
 
+    // Pequeña pausa para que el bus se estabilice
     for(volatile int i = 0; i < 200; i++);
 
+    // 2. Leer los 7 registros de corrido
     I2C_Start();
-    I2C_WriteByte((DS3231_ADDR << 1) | 1);
+    I2C_WriteByte((DS3231_ADDR << 1) | 1); // Modo lectura
 
-    I2C1->C1 &= ~I2C_C1_TX_MASK;
-    I2C1->C1 &= ~I2C_C1_TXAK_MASK;
+    I2C1->C1 &= ~I2C_C1_TX_MASK;   // Configurar para recibir
+    I2C1->C1 &= ~I2C_C1_TXAK_MASK; // Mandar ACK después de cada lectura
 
-    uint8_t dummy = I2C1->D;
+    uint8_t dummy = I2C1->D; // Lectura de inicio
     I2C_Wait();
 
-    *sec   = bcdToDec(I2C1->D); I2C_Wait();
-    *min   = bcdToDec(I2C1->D); I2C_Wait();
-    *hour  = bcdToDec(I2C1->D & 0x3F); I2C_Wait();
-    dummy  = I2C1->D; I2C_Wait(); // Día semana
-    *day   = bcdToDec(I2C1->D); I2C_Wait();
+    raw_sec = I2C1->D;
+    I2C_Wait();
 
+    raw_min = I2C1->D;
+    I2C_Wait();
+
+    raw_hour = I2C1->D;
+    I2C_Wait();
+
+    raw_dow = I2C1->D; // Día de la semana (lo leemos pero lo ignoramos)
+    I2C_Wait();
+
+    raw_day = I2C1->D;
+    I2C_Wait();
+
+    // ¡OJO AQUÍ! Antes de leer el penúltimo dato, preparamos el NACK
     I2C1->C1 |= I2C_C1_TXAK_MASK;
-    *month = bcdToDec(I2C1->D & 0x1F); I2C_Wait();
 
+    raw_month = I2C1->D;
+    I2C_Wait();
+
+    // Mandamos el STOP ANTES de leer el último dato
     I2C_Stop();
-    *year  = bcdToDec(I2C1->D);
+    raw_year = I2C1->D;
+
+    // 3. Aplicar conversiones BCD y guardar en los punteros
+    *sec   = bcdToDec(raw_sec);
+    *min   = bcdToDec(raw_min);
+    *hour  = bcdToDec(raw_hour & 0x3F); // Máscara para reloj 24h
+    *day   = bcdToDec(raw_day);
+    *month = bcdToDec(raw_month & 0x1F); // Máscara de mes
+    *year  = bcdToDec(raw_year);
 }
 
 void DS3231_SetTime(uint8_t hour, uint8_t min, uint8_t sec, uint8_t day, uint8_t month, uint8_t year) {
@@ -167,167 +200,50 @@ void DS3231_SetTime(uint8_t hour, uint8_t min, uint8_t sec, uint8_t day, uint8_t
 }
 
 // ==========================================
-// FUNCIONES SPI0 (MAX7219 - PUERTO D)
-// Adaptado para 5461AS-1 (Ánodo Común)
-// ==========================================
-
-// Mapa de segmentos de 7 segmentos (Bit 0=a, Bit 1=b, ..., Bit 6=g)
-const uint8_t ca_digits[10] = {
-    0x3F, // 0
-    0x06, // 1
-    0x5B, // 2
-    0x4F, // 3
-    0x66, // 4
-    0x6D, // 5
-    0x7D, // 6
-    0x07, // 7
-    0x7F, // 8
-    0x6F  // 9
-};
-
-void SPI0_Init(void) {
-    SIM->SCGC5 |= SIM_SCGC5_PORTD_MASK;
-    SIM->SCGC4 |= SIM_SCGC4_SPI0_MASK;
-
-    // PTD0 como CS (GPIO) con Pull-Up interna activada
-    PORTD->PCR[0] = PORT_PCR_MUX(1) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;
-    GPIOD->PDDR |= (1 << 0);
-    GPIOD->PSOR = (1 << 0); // CS a HIGH por defecto
-
-    // PTD1 (SCK) y PTD2 (MOSI) con Pull-Down
-    PORTD->PCR[1] = PORT_PCR_MUX(2) | PORT_PCR_PE_MASK;
-    PORTD->PCR[2] = PORT_PCR_MUX(2) | PORT_PCR_PE_MASK;
-
-    SPI0->C1 = SPI_C1_MSTR_MASK | SPI_C1_SPE_MASK;
-
-    // Velocidad SPI reducida para evitar ruido en cables de protoboard
-    SPI0->BR = SPI_BR_SPPR(3) | SPI_BR_SPR(5);
-}
-
-void MAX7219_Write(uint8_t addr, uint8_t data) {
-    GPIOD->PCOR = (1 << 0); // CS a LOW
-    for(volatile int i = 0; i < 20; i++);
-
-    // Enviar registro/dirección
-    while(!(SPI0->S & SPI_S_SPTEF_MASK));
-    SPI0->D = addr;
-    while(!(SPI0->S & SPI_S_SPRF_MASK));
-    (void)SPI0->D;
-
-    // Enviar dato
-    while(!(SPI0->S & SPI_S_SPTEF_MASK));
-    SPI0->D = data;
-    while(!(SPI0->S & SPI_S_SPRF_MASK));
-    (void)SPI0->D;
-
-    // Tiempos de guarda para el pestillo del CS
-    for(volatile int i = 0; i < 50; i++);
-    GPIOD->PSOR = (1 << 0); // CS a HIGH
-    for(volatile int i = 0; i < 50; i++);
-}
-
-void MAX7219_Init(void) {
-    // 1. Forzar apagar el modo de prueba (Evita encendido masivo de fábrica)
-    MAX7219_Write(0x0F, 0x00);
-    delay_ms(10);
-
-    // 2. Desactivar el Decode Mode (Manual por mapa de bits)
-    MAX7219_Write(0x09, 0x00);
-
-    // 3. Activar el chip (Salir de Shutdown)
-    MAX7219_Write(0x0C, 0x01);
-
-    // 4. Configurar nivel de brillo moderado
-    MAX7219_Write(0x0A, 0x02);
-
-    // 5. Configurar Scan Limit a 8 dígitos (Requerido para la matriz transpuesta)
-    MAX7219_Write(0x0B, 0x07);
-
-    // 6. Limpiar registros de dígitos
-    for(int i = 1; i <= 8; i++) {
-        MAX7219_Write(i, 0x00);
-    }
-    delay_ms(10);
-}
-
-void MAX7219_DisplayTime(uint8_t hour, uint8_t min) {
-    // Protección de rango 0-9 contra lecturas erróneas del I2C
-    uint8_t h_tens  = (hour / 10) % 10;
-    uint8_t h_units = hour % 10;
-    uint8_t m_tens  = (min / 10) % 10;
-    uint8_t m_units = min % 10;
-
-    uint8_t d1 = ca_digits[h_tens];  // DIG 1 (Decenas Hora)
-    uint8_t d2 = ca_digits[h_units]; // DIG 2 (Unidades Hora)
-    uint8_t d3 = ca_digits[m_tens];  // DIG 3 (Decenas Minuto)
-    uint8_t d4 = ca_digits[m_units]; // DIG 4 (Unidades Minuto)
-
-    // Barrido por cátodo de segmento (REG 1 a REG 8)
-    for (uint8_t seg = 0; seg < 8; seg++) {
-        uint8_t reg_data = 0x00;
-
-        if (seg < 7) {
-            if (d1 & (1 << seg)) reg_data |= (1 << 6); // Ánodo DIG 1 (SEG A)
-            if (d2 & (1 << seg)) reg_data |= (1 << 5); // Ánodo DIG 2 (SEG B)
-            if (d3 & (1 << seg)) reg_data |= (1 << 4); // Ánodo DIG 3 (SEG C)
-            if (d4 & (1 << seg)) reg_data |= (1 << 3); // Ánodo DIG 4 (SEG D)
-        } else {
-            // Activa el punto decimal en el segundo dígito (separador de hora)
-            reg_data |= (1 << 5);
-        }
-
-        MAX7219_Write(seg + 1, reg_data);
-    }
-}
-
-// ==========================================
 // PROGRAMA PRINCIPAL
 // ==========================================
 int main(void) {
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
 
-    // Retardo de estabilización tras encendido/reset
-    delay_ms(100);
-
-    // Habilitar LCD (Puerto C)
+    // Iniciar LCD
     SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
-    for(int i = 0; i <= 5; i++) PORTC->PCR[i] = PORT_PCR_MUX(1);
+    for(int i = 0; i <= 5; i++) {
+        PORTC->PCR[i] = PORT_PCR_MUX(1);
+    }
     GPIOC->PDDR |= (RS | EN | D4 | D5 | D6 | D7);
 
-    // Inicialización de Periféricos
     LCD_Init();
-    I2C1_Init();
-    SPI0_Init();
-    MAX7219_Init();
 
     LCD_Command(0x80);
     LCD_Print("Iniciando...");
     delay_ms(500);
 
+    I2C1_Init();
+
     // -------------------------------------------------------------
-    // DESCOMENTAR SOLO UNA VEZ PARA RECONFIGURAR LA HORA DEL RTC:
-    // DS3231_SetTime(15, 30, 00, 30, 9, 26);
+    // SI EL RELOJ TIENE HORA BASURA O 00:00:00,
+    // DESCOMENTA ESTO UNA VEZ, SUBE EL CÓDIGO, LUEGO VUÉLVELO A
+    // COMENTAR Y SUBE EL CÓDIGO OTRA VEZ.
+    DS3231_SetTime(23, 59, 50, 9, 9, 26);
     // -------------------------------------------------------------
 
     char buffer[17];
     uint8_t hour, min, sec, day, month, year;
 
     while(1) {
-        // 1. Obtener tiempo actual desde el RTC
+        // Leemos todos los valores en un solo movimiento estable
         DS3231_ReadTime(&hour, &min, &sec, &day, &month, &year);
 
-        // 2. Actualización de Pantalla LCD (Fecha y Hora)
+        // Imprimir Fecha
         LCD_Command(0x80);
         sprintf(buffer, "Date: %02d/%02d/%02d", day, month, year);
         LCD_Print(buffer);
 
+        // Imprimir Hora
         LCD_Command(0xC0);
         sprintf(buffer, "Time: %02d:%02d:%02d", hour, min, sec);
         LCD_Print(buffer);
-
-        // 3. Actualización de Display 7 Segmentos 5461AS-1 (Formato HH:MM)
-        MAX7219_DisplayTime(hour, min);
 
         delay_ms(500);
     }
